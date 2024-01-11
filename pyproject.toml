@@ -16,6 +16,17 @@ scikit-learn = "^1.3.2"
 folium = "^0.15.1"
 
 
+[tool.poetry.group.streamlit.dependencies]
+streamlit = "^1.29.0"
+
+
+[tool.poetry.group.web.dependencies]
+flask = "^3.0.0"
+pandas = "^2.1.4"
+gunicorn = "^21.2.0"
+inflection = "^0.5.1"
+scikit-learn = "^1.3.2"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
