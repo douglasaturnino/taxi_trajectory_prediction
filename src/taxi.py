@@ -79,7 +79,7 @@ class taxi(object):
     def miss_flg(self, df):
         return 1 if df["missing_data"] else 0
 
-    def get_prediction(self, model, teste_data):
+    def get_prediction(self, teste_data, model):
         pred = model.predict(teste_data)
         return pred
         

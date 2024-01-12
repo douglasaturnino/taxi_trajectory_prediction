@@ -14,7 +14,7 @@ model = pickle.load(open(model_pah, 'rb'))
 #inicialize API
 app = Flask(__name__)
 
-@app.route('/taxi/predict', methods=['GET'])
+@app.route('/predict', methods=['GET'])
 def index():
     teste_json = request.get_json()
 
@@ -28,20 +28,13 @@ def index():
         # Instantiate Taxi class
         pipeline = taxi()
 
-        # data cleaning
-        df1 = pipeline.data_cleaning(test_raw)
+        df = (test_raw.pipe(pipeline.data_cleaning)
+                      .pipe(pipeline.feature_engineering)
+                      .pipe(pipeline.data_preparation)
+                      .pipe(pipeline.get_prediction, model=model))
 
-        # feature engineering
-        df2 = pipeline.feature_engineering(df1)
-
-        # data preparation
-        df3 = pipeline.data_preparation(df2)
-
-        # prediction
-        df4 = pipeline.get_prediction(model, df3)
-        
         # join pred into the original data
-        test_raw[['pred_lat', 'pred_long']] = df4
+        test_raw[['pred_lat', 'pred_long']] = df
 
         return test_raw.to_json(orient='records', date_format='iso')
 
