@@ -18,6 +18,7 @@ folium = "^0.15.1"
 
 [tool.poetry.group.streamlit.dependencies]
 streamlit = "^1.29.0"
+streamlit-folium = "^0.18.0"
 
 
 [tool.poetry.group.web.dependencies]
