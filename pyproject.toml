@@ -19,6 +19,8 @@ folium = "^0.15.1"
 [tool.poetry.group.streamlit.dependencies]
 streamlit = "^1.29.0"
 streamlit-folium = "^0.18.0"
+geopandas = "^0.14.2"
+osmnx = "^1.8.1"
 
 
 [tool.poetry.group.web.dependencies]

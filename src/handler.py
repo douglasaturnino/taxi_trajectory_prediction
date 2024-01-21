@@ -16,29 +16,28 @@ app = Flask(__name__)
 
 @app.route('/predict', methods=['GET'])
 def index():
-    teste_json = request.get_json()
+    dados_json = request.get_json()
 
-    if teste_json: # there is data
-        if isinstance(teste_json, dict): # unique example 
-            test_raw = pd.DataFrame(teste_json, index=[0])
+    if dados_json: # there is data
+        if isinstance(dados_json, dict): # unique example 
+            raw = pd.DataFrame(dados_json, index=[0])
         
         else: # multiple example
-            test_raw = pd.DataFrame(teste_json, columns=teste_json[0].keys())
+            raw = pd.DataFrame(dados_json, columns=dados_json[0].keys())
 
         # Instantiate Taxi class
-        pipeline = taxi()
+        taxis = taxi()
 
-        df = (test_raw.pipe(pipeline.data_cleaning)
-                      .pipe(pipeline.feature_engineering)
-                      .pipe(pipeline.data_preparation)
-                      .pipe(pipeline.get_prediction, model=model))
+        df = (raw.pipe(taxis.data_cleaning)
+                      .pipe(taxis.data_preparation)
+                      .pipe(taxis.get_prediction, model=model))
 
         # join pred into the original data
-        test_raw[['pred_lat', 'pred_long']] = df
+        raw[['pred_lat', 'pred_long']] = df
 
-        return test_raw.to_json(orient='records', date_format='iso')
+        return raw.to_json(orient='records', date_format='iso')
 
     else:
         return Response('{}', status=200, mimetype='application/json')
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

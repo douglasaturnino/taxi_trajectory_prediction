@@ -38,9 +38,12 @@ RUN set -ex \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ./streamlit/ /app/
+COPY ./dataset /app/dataset
+COPY ./cache /app/cache
+
 
 EXPOSE 8501
 # Set the user to run the application
 USER appuser
 
-ENTRYPOINT ["streamlit", "run", "home.py"]
+ENTRYPOINT ["streamlit", "run", "streamlit.py"]
