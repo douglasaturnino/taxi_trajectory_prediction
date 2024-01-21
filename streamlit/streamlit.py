@@ -25,11 +25,11 @@ def predict(data):
     return pd.DataFrame(response.json(), columns=response.json()[0].keys())
 
 
-if 'start_long' not in st.session_state:
-    st.session_state['start_long'] = -8.6288
-
 if 'start_lat' not in st.session_state:
     st.session_state['start_lat'] = 41.1590
+
+if 'start_long' not in st.session_state:
+    st.session_state['start_long'] = -8.6288
 
 data = load_data()
 st.title("Projeto Previsão de trajetória de táxi")
