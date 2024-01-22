@@ -26,10 +26,10 @@ def predict(data):
 
 
 if 'start_lat' not in st.session_state:
-    st.session_state['start_lat'] = 41.1590
+    st.session_state['start_lat'] = 41.1579
 
 if 'start_long' not in st.session_state:
-    st.session_state['start_long'] = -8.6288
+    st.session_state['start_long'] = -8.6291
 
 data = load_data()
 st.title("Projeto Previsão de trajetória de táxi")
@@ -64,10 +64,10 @@ with st.container():
     col1, col2 = st.columns(2)
 
     with col1:
-        start_lat = st.number_input(label="Latitude Inicial", value=st.session_state['start_lat'], placeholder="Digite a Latitude", min_value=41.13851, max_value=41.185935, format="%.4f", step=0.001)
+        start_lat = st.number_input(label="Latitude Inicial", value=st.session_state['start_lat'], placeholder="Digite a Latitude", min_value=41.13835, max_value=41.18593, format="%.5f", step=0.001)
 
     with col2:
-        start_long = st.number_input(label="Longitude Inicial", value=st.session_state['start_long'], placeholder="Digite a Longitude", min_value=-8.6913, max_value=-8.5526, format="%.4f", step=0.001)
+        start_long = st.number_input(label="Longitude Inicial", value=st.session_state['start_long'], placeholder="Digite a Longitude", min_value=-8.69128, max_value=-8.55261, format="%.5f", step=0.001)
 
 with st.expander("Ver mapa"):
     mapa.map_expander()
