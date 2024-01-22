@@ -24,14 +24,27 @@ def predict(data):
     
     return pd.DataFrame(response.json(), columns=response.json()[0].keys())
 
+def last_clicked():
+
+    coordinate = mapa.map_expander()
+    if coordinate != None:
+        if coordinate['lat'] > 41.13835 and coordinate['lat'] < 41.18593:
+            if coordinate['lng'] > -8.69128 and coordinate['lng'] < -8.55261:
+
+                st.session_state['start_lat'] = coordinate['lat']
+
+                st.session_state['start_long'] = coordinate['lng']
+                
+
 
 if 'start_lat' not in st.session_state:
     st.session_state['start_lat'] = 41.1579
 
 if 'start_long' not in st.session_state:
     st.session_state['start_long'] = -8.6291
-
+    
 data = load_data()
+
 st.title("Projeto Previsão de trajetória de táxi")
 
 with st.container():
@@ -59,21 +72,34 @@ with st.container():
     with col2:
         taxi_id = st.selectbox(label='Taxi Id:', options=data['taxi_id'])
 
-
 with st.container():
     col1, col2 = st.columns(2)
 
     with col1:
-        start_lat = st.number_input(label="Latitude Inicial", value=st.session_state['start_lat'], placeholder="Digite a Latitude", min_value=41.13835, max_value=41.18593, format="%.5f", step=0.001)
+        start_lat = st.number_input(label="Latitude Inicial", 
+                                    value=st.session_state['start_lat'], 
+                                    placeholder="Digite a Latitude", 
+                                    min_value=41.13835, 
+                                    max_value=41.18593, 
+                                    format="%.4f", 
+                                    step=0.001)
 
     with col2:
-        start_long = st.number_input(label="Longitude Inicial", value=st.session_state['start_long'], placeholder="Digite a Longitude", min_value=-8.69128, max_value=-8.55261, format="%.5f", step=0.001)
+        start_long = st.number_input(label="Longitude Inicial", 
+                                     value=st.session_state['start_long'], 
+                                     placeholder="Digite a Longitude", 
+                                     min_value=-8.69128, 
+                                     max_value=-8.55261, 
+                                     format="%.4f", 
+                                     step=0.001)
 
-with st.expander("Ver mapa"):
-    mapa.map_expander()
+with st.expander(label='Ver mapa'):
+    last_clicked()
+    
 
-
+    
 if st.button(label= 'Previsão'):
+    
     data = pd.DataFrame(
         {
             'call_type': [call_type],
@@ -87,4 +113,5 @@ if st.button(label= 'Previsão'):
     data = predict(data)
     st.dataframe(data)
     mapa.show_map(data)
+   
 

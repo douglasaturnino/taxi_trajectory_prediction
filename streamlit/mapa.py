@@ -3,7 +3,7 @@ from itertools import count
 import folium
 import geopandas as gpd
 import osmnx as ox
-from streamlit_folium import folium_static
+from streamlit_folium import folium_static, st_folium
 import streamlit as st
 from folium.plugins import MousePosition, MarkerCluster
 
@@ -20,24 +20,26 @@ def map_expander():
   
 
     # Criar um mapa centrado na geometria da cidade do Porto
-    m = folium.Map(location=[latitude_porto, longitude_porto], zoom_start=13)
+    mymap = folium.Map(location=[latitude_porto, longitude_porto], zoom_start=13)
 
     # Adicionar a geometria da cidade do Porto ao mapa
-    folium.GeoJson(area).add_to(m)
+    folium.GeoJson(area).add_to(mymap)
 
     # Adicionar o plugin MousePosition para destacar marcador e caminho sob o mouse
-    MousePosition().add_to(m)
+    MousePosition().add_to(mymap)
 
-    folium.ClickForMarker().add_to(m)
+    folium.ClickForMarker().add_to(mymap)
 
-    # Exibir o mapa usando streamlit
     st.title('Mapa Interativo - Porto, Portugal')
-    folium_static(m)
+
+    # call to render Folium map in Streamlit
+    st_data = st_folium(mymap, use_container_width=True, return_on_hover=True)
+    return st_data['last_clicked']
     
     
 def show_map(data):
     # Criar um mapa usando folium
-    mymap = folium.Map(location=[data['start_lat'].mean(), data['start_long'].mean()], zoom_start=13, min_lat=data['start_lat'].min())
+    mymap = folium.Map(location=[data['start_lat'].mean(), data['start_long'].mean()], zoom_start=13)
     # Adicionar marcadores para o início e o fim de cada trajetória com cores diferentes e numeração
     for i, (index, row) in zip(count(start=1), data.iterrows()):
         start_popup = f'"<b>Latitude inicial:</b> {row["start_lat"]}<br/><b>Longitude inicial:</b> {row["start_long"]}"'
