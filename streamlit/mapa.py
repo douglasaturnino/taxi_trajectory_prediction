@@ -18,7 +18,6 @@ def map_expander():
     # Geocodificar a cidade para obter a geometria
     area = ox.geocode_to_gdf(city_name)
   
-
     # Criar um mapa centrado na geometria da cidade do Porto
     mymap = folium.Map(location=[latitude_porto, longitude_porto], zoom_start=13)
 
@@ -42,8 +41,8 @@ def show_map(data):
     mymap = folium.Map(location=[data['start_lat'].mean(), data['start_long'].mean()], zoom_start=13)
     # Adicionar marcadores para o início e o fim de cada trajetória com cores diferentes e numeração
     for i, (index, row) in zip(count(start=1), data.iterrows()):
-        start_popup = f'"<b>Latitude inicial:</b> {row["start_lat"]}<br/><b>Longitude inicial:</b> {row["start_long"]}"'
-        pred_popup = f'"<b>Latitude predita:</b> {row["pred_lat"]}<br/><b>Longtude predita:</b> {row["pred_long"]}"'
+        start_popup = f'<b>Latitude inicial:</b> {row["start_lat"]:.4f}<br/><b>Longitude inicial:</b> {row["start_long"]:.4f}'
+        pred_popup = f'<b>Latitude predita:</b> {row["pred_lat"]:.4f}<br/><b>Longtude predita:</b> {row["pred_long"]:.4f}'
 
         start_marker = folium.Marker([row['start_lat'], row['start_long']], 
                                         popup=folium.Popup(start_popup, max_width=300),
