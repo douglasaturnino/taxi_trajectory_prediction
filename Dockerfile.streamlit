@@ -46,4 +46,4 @@ EXPOSE 8501
 # Set the user to run the application
 USER appuser
 
-ENTRYPOINT ["streamlit", "run", "streamlit.py"]
+ENTRYPOINT ["streamlit", "run", "Home.py"]
