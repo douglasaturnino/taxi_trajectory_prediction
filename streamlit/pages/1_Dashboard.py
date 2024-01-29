@@ -9,6 +9,11 @@ import streamlit as st
 
 import mapa
 
+st.set_page_config(
+    page_title="Previsão de Trajetória de Táxi",
+    page_icon="📈"
+    
+)
 
 @st.cache_data 
 def load_data():
@@ -45,7 +50,7 @@ def initialize_session_state():
          st.session_state['origin_stand'] = np.NaN
 
 def create_ui():
-    st.title("Projeto Previsão de trajetória de táxi")
+    st.title("Projeto Previsão de Trajetória de Táxi")
 
     with st.container():
         col1, col2 = st.columns(2)
