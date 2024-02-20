@@ -73,7 +73,25 @@ O que será entregue efetivamente?
 #### 3 A quantidade de viagens entre o ponto de origem e o ponto de destino (distance) é inferior a 5 km.
 **Verdadeira**: A quantidade de viagens inferior a 5km é maior.
 
-## 5. Resultados para o negócio
+## 5. E quanto da isso em R$
+
+- Carros a gasolina: Cerca de 6 a 10 litros por 100 km, dependendo do modelo.
+- Gasolina: Cerca de 1,60 a 1,80 euros por litro.
+- Suponha um carro a gasolina com um consumo médio de 8 litros/100 km.
+- Se o preço da gasolina for 1,70 euros por litro, o custo por quilômetro seria aproximadamente 0,136 euros
+
+Quantidade de viagens: 1.710.670
+- Km ate passageiro: 1,5km
+- Quantidade gasta com gasolina: 1.710.670 * 0,136 * 1,5 = 348.976,68
+
+
+Com 1 km
+- 1.710.670 * 0,136 * 1 = 232.651,12
+- 348.976,68 - 232.651,12 = 116.325,56
+
+Levando em consideração um diminuição de 500m em um periodo de um ano poderia ter uma economia de 116 mil euros
+
+## 6. Resultados para o negócio
 De acordo com os critérios definidos, foi feita uma previsão do destino final da viagem. Como resultado para o negócio foram criados:
 
 * Uma API onde será feita a previsão do destino final da viagem.
